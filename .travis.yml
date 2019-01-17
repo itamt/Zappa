@@ -1,11 +1,18 @@
 language: python
-python:
-  - "2.7"
-  - "3.6"
-  - "3.7"
-# for python 3.7
-sudo: true
-dist: xenial
+matrix:
+  include:
+    - python: "2.7"
+    - python: "3.6"
+    - python: "3.7"
+      dist: xenial
+      sudo: true
+#python:
+#  - "2.7"
+#  - "3.6"
+#  - "3.7"
+## for python 3.7
+#sudo: true
+#dist: xenial
 # command to install dependencies
 cache:
   - pip
@@ -24,5 +31,5 @@ script:
     #  - coverage combine --append
 after_success:
   coveralls
-notifications:
-  slack: zappateam:TTJ0mfHunDK0IBweKkEXjGpR
+#notifications:
+#  slack: zappateam:TTJ0mfHunDK0IBweKkEXjGpR
