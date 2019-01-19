@@ -1,11 +1,11 @@
 language: python
-python:
-  - "2.7"
-  - "3.6"
-  - "3.7"
-# for python 3.7
-sudo: true
-dist: xenial
+matrix:
+  include:
+    - python: "2.7"
+    - python: "3.6"
+    - python: "3.7"
+      dist: xenial
+      sudo: true
 # command to install dependencies
 cache:
   - pip
@@ -13,16 +13,16 @@ install:
   - "pip install --upgrade pip; pip install --upgrade setuptools; pip install -r test_requirements.txt; pip install -e git+https://github.com/django/django-contrib-comments.git#egg=django-contrib-comments; python setup.py install" 
 # command to run tests
 env:
-  - TESTCASE=tests/tests_docs.py
-  - TESTCASE=tests/test_handler.py
-  - TESTCASE=tests/tests_middleware.py
-  - TESTCASE=tests/tests_placebo.py
-  - TESTCASE=tests/tests_async.py
-  - TESTCASE=tests/tests.py
-script: 
-  - nosetests $TESTCASE --with-coverage --cover-package=zappa --with-timer
-    #  - coverage combine --append
+  - TESTOPTIONS=( --with-coverage --cover-package=zappa --with-timer )
+script:
+  - nosetests ${TESTOPTIONS[@]} tests/tests_docs.py
+  - nosetests ${TESTOPTIONS[@]} tests/test_handler.py
+  - nosetests ${TESTOPTIONS[@]} tests/tests_middleware.py
+  - nosetests ${TESTOPTIONS[@]} tests/tests_placebo.py
+  - nosetests ${TESTOPTIONS[@]} tests/tests_async.py
+  - nosetests ${TESTOPTIONS[@]} tests/tests.py
+  #  - coverage combine --append
 after_success:
   coveralls
-notifications:
-  slack: zappateam:TTJ0mfHunDK0IBweKkEXjGpR
+#notifications:
+#  slack: zappateam:TTJ0mfHunDK0IBweKkEXjGpR
