@@ -12,15 +12,15 @@ cache:
 install:
   - "pip install --upgrade pip; pip install --upgrade setuptools; pip install -r test_requirements.txt; pip install -e git+https://github.com/django/django-contrib-comments.git#egg=django-contrib-comments; python setup.py install" 
 # command to run tests
-env:
-  - TESTOPTIONS=( --with-coverage --cover-package=zappa --with-timer )
+#env:
+#  - TESTOPTIONS=( --with-coverage --cover-package=zappa --with-timer )
 script:
-  - nosetests tests/tests_docs.py "${TESTOPTIONS[@]}"
-  - nosetests tests/test_handler.py "${TESTOPTIONS[@]}"
-  - nosetests tests/tests_middleware.py "${TESTOPTIONS[@]}"
-  - nosetests tests/tests_placebo.py "${TESTOPTIONS[@]}"
-  - nosetests tests/tests_async.py "${TESTOPTIONS[@]}"
-  - nosetests tests/tests.py "${TESTOPTIONS[@]}"
+  - nosetests tests/tests_docs.py --with-coverage --cover-package=zappa --with-timer
+  - nosetests tests/test_handler.py --with-coverage --cover-package=zappa --with-timer
+  - nosetests tests/tests_middleware.py --with-coverage --cover-package=zappa --with-timer
+  - nosetests tests/tests_placebo.py --with-coverage --cover-package=zappa --with-timer
+  - nosetests tests/tests_async.py --with-coverage --cover-package=zappa --with-timer
+  - nosetests tests/tests.py --with-coverage --cover-package=zappa --with-timer
   #  - coverage combine --append
 after_success:
   coveralls
