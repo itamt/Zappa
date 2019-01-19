@@ -15,12 +15,12 @@ install:
 env:
   - TESTOPTIONS=( --with-coverage --cover-package=zappa --with-timer )
 script:
-  - nosetests "${TESTOPTIONS[@]}" tests/tests_docs.py
-  - nosetests "${TESTOPTIONS[@]}" tests/test_handler.py
-  - nosetests "${TESTOPTIONS[@]}" tests/tests_middleware.py
-  - nosetests "${TESTOPTIONS[@]}" tests/tests_placebo.py
-  - nosetests "${TESTOPTIONS[@]}" tests/tests_async.py
-  - nosetests "${TESTOPTIONS[@]}" tests/tests.py
+  - nosetests tests/tests_docs.py "${TESTOPTIONS[@]}"
+  - nosetests tests/test_handler.py "${TESTOPTIONS[@]}"
+  - nosetests tests/tests_middleware.py "${TESTOPTIONS[@]}"
+  - nosetests tests/tests_placebo.py "${TESTOPTIONS[@]}"
+  - nosetests tests/tests_async.py "${TESTOPTIONS[@]}"
+  - nosetests tests/tests.py "${TESTOPTIONS[@]}"
   #  - coverage combine --append
 after_success:
   coveralls
